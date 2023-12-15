@@ -1,49 +1,41 @@
 package hellojpa;
 
-import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Entity
-public class Member {
-	
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn
+public abstract class Item {
 	
 	@Id @GeneratedValue
-	@Column(name = "MEMBER_ID")
 	private Long id;
 	
-	@Column(name = "USERNAME")
 	private String name;
-	 
-	@ManyToOne
-	@JoinColumn(name = "TEAM_ID",insertable = false,updatable = false)
-	private Team team;
+	private int price;
+	
 	
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Team getTeam() {
-		return team;
+	public int getPrice() {
+		return price;
 	}
-
-	public void setTeam(Team team) {
-		this.team = team;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
 	
